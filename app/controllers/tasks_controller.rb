@@ -8,25 +8,33 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
   end
 
+  def new
+    @task = Task.new
+  end
+
   def edit
     @task = Task.find(params[:id])
   end
 
   def create
-    @task = Task.new(params[:task])
+    @task = Task.new(task_params)
     @task.save
+
+    redirect_to task_path(@task)
   end
 
   def update
     @task = Task.find(params[:id])
-    @task.update(params[:task])
+    @task.update(task_params)
+
+    redirect_to task_path(@task)
   end
 
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
 
-    redirect_to restaurants_path
+    redirect_to tasks_path(@task)
   end
 
 private
